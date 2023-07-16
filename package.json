@@ -4,7 +4,7 @@
     "description": "Loja Virtual Marlos Cardoso",
     "main": "server.js",
     "scripts": {
-        "start": "node server.js"
+        "start": "npm server.js"
     },
     "keywords": [
         "ternos",
