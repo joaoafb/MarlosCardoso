@@ -1,4 +1,7 @@
 {
+  "name": "seu-projeto",
+  "version": "1.0.0",
+  "description": "Descrição do seu projeto",
   "dependencies": {
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
@@ -8,5 +11,7 @@
   },
   "scripts": {
     "start": "node server.js"
-  }
+  },
+  "author": "Seu nome",
+  "license": "Licença do seu projeto (por exemplo, MIT, ISC, etc.)"
 }
