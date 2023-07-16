@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Marlos Cardoso | Moda Masculina</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="all,follow">
+    <!-- gLightbox gallery-->
+    <link rel="stylesheet" href="vendor/glightbox/css/glightbox.min.css">
+    <!-- Range slider-->
+    <link rel="stylesheet" href="vendor/nouislider/nouislider.min.css">
+    <!-- Choices CSS-->
+    <link rel="stylesheet" href="vendor/choices.js/public/assets/styles/choices.min.css">
+    <!-- Swiper slider-->
+    <link rel="stylesheet" href="vendor/swiper/swiper-bundle.min.css">
+    <!-- Google fonts-->
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;400;700&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Martel+Sans:wght@300;400;800&amp;display=swap">
+    <!-- theme stylesheet-->
+    <script src="https://cdn.jsdelivr.net/momentjs/2.29.1/moment.min.js"></script>
+
+    <link rel="stylesheet" href="css/style.default.css" id="theme-stylesheet">
+    <!-- Custom stylesheet - for your changes-->
+    <link rel="stylesheet" href="css/custom.css">
+    <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="img/logopng.ico">
+    <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
+    <script src="https://cdn.socket.io/4.2.0/socket.io.min.js"></script>
+
+
+</head>
+
+<body>
+    <div class="page-holder">
+        <!-- navbar-->
+        <header class="header bg-white">
+            <div class="container px-lg-3">
+                <nav class="navbar navbar-expand-lg navbar-light py-3 px-lg-0"><a class="navbar-brand" href="/"><span class="fw-bold text-uppercase text-dark">Marlos Cardoso</span></a>
+                    <button class="navbar-toggler navbar-toggler-end" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto">
+                            <li class="nav-item">
+                                <!-- Link--><a class="nav-link active" href="/">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <!-- Link--><a class="nav-link" href="shop">Catálogo</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="https://www.instagram.com/marloscard/" target="_blank" class="nav-link"><i class="lni lni-instagram"></i>@marloscard</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="https://wa.me/5574988274544" target="_blank" class="nav-link"><i class="lni lni-whatsapp"></i>(74) 98827-4544</a>
+                            </li>
+
+
+                        </ul>
+                        <ul class="navbar-nav ms-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="cart"> <i class="fas fa-dolly-flatbed me-1 text-gray"></i>Carrinho</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="./login"> <i class="fas fa-user me-1 text-gray fw-normal"></i>Entrar</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <!--  Modal -->
+        <div class="modal fade" id="productView" tabindex="-1">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content overflow-hidden border-0">
+                    <button class="btn-close p-4 position-absolute top-0 end-0 z-index-20 shadow-0" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <div class="modal-body p-0">
+                        <div class="row align-items-stretch">
+                            <div class="col-lg-6 p-lg-0">
+                                <a class="glightbox product-view d-block h-100 bg-cover bg-center" id="product-image" data-gallery="gallery1" data-glightbox="Gravata 1"></a>
+
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="p-4 my-md-4">
+                                    <ul class="list-inline mb-2">
+                                        <li class="list-inline-item m-0"><i class="fas fa-star small text-warning"></i></li>
+                                        <li class="list-inline-item m-0 1"><i class="fas fa-star small text-warning"></i></li>
+                                        <li class="list-inline-item m-0 2"><i class="fas fa-star small text-warning"></i></li>
+                                        <li class="list-inline-item m-0 3"><i class="fas fa-star small text-warning"></i></li>
+                                        <li class="list-inline-item m-0 4"><i class="fas fa-star small text-warning"></i></li>
+                                    </ul>
+                                    <h2 class="h4" id="product-title"></h2>
+                                    <p class="text-muted" id="product-price"></p>
+                                    <p class="text-sm mb-4" id="product-description"> </p>
+                                    <div class="row align-items-stretch mb-4 gx-0">
+
+                                        <div class="col-sm-5" id="btn-addcart" style="width: 100%;"><button style="width: 100%;" class="btn btn-dark btn-sm w-100 h-100 d-flex align-items-center justify-content-center px-0" href="cart">Adicionar no carrinho</button></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- HERO SECTION-->
+        <div class="container">
+            <section class="hero pb-3 bg-cover bg-center d-flex align-items-center" style="background: url(img/hero-banner-alt.png)">
+                <div class="container py-5">
+                    <div class="row px-4 px-lg-5">
+                        <div class="col-lg-6">
+                            <p class="text-muted small text-uppercase mb-2">"Estilo masculino elevado à máxima elegância."</p>
+                            <h1 class="h2 text-uppercase mb-3">Marlos Cardoso</h1><a class="btn btn-dark" href="shop">Ternos</a><a class="btn btn-dark" href="shop">Gravatas</a><a class="btn btn-dark" href="shop">Sapatos</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- CATEGORIES SECTION-->
+            <section class="pt-5">
+                <header class="text-center">
+                    <p class="small text-muted small text-uppercase mb-1">Refine seu visual com nossos ternos exclusivos.</p>
+                    <h2 class="h5 text-uppercase mb-4">Categorias</h2>
+                </header>
+                <div class="row">
+                    <div class="col-md-4">
+                        <a class="category-item" href="shop#TERNOS"><img class="img-fluid" src="img/cat-img-1.jpg" alt="" /><strong class="category-item-title">Ternos</strong></a>
+                    </div>
+                    <div class="col-md-4">
+                        <a class="category-item mb-4" href="shop#GRAVATAS"><img class="img-fluid" src="img/cat-img-2.jpg" alt="" /><strong class="category-item-title">Gravatas</strong></a>
+                        <a class="category-item" href="shop#SAPATOS"><img class="img-fluid" src="img/cat-img-3.jpg" alt="" /><strong class="category-item-title">Sapatos</strong></a>
+                    </div>
+                    <div class="col-md-4">
+                        <a class="category-item" href="shop#OUTROS"><img class="img-fluid" src="img/cat-img-4.jpg" alt="" /><strong class="category-item-title">Outros</strong></a>
+                    </div>
+                </div>
+            </section>
+            <!-- TRENDING PRODUCTS-->
+            <section class="py-5">
+                <header>
+                    <p class="small text-muted small text-uppercase mb-1">Nossos Produtos</p>
+                    <h2 class="h5 text-uppercase mb-4">Produtos em alta</h2>
+                </header>
+                <div class="row" id="list-products">
+
+
+
+                </div>
+            </section>
+
+        </div>
+        <footer class="bg-dark text-white">
+            <div class="container py-4">
+                <div class="row py-5">
+                    <div class="col-md-4 mb-3 mb-md-0">
+                        <h6 class="text-uppercase mb-3">Atendimento ao cliente</h6>
+                        <ul class="list-unstyled mb-0">
+                            <li><a class="footer-link" target="_blank" href="https://wa.me/5574988274544?text=Preciso de sua ajuda, Marlos Cardoso">Ajuda</a></li>
+
+
+                            <li><a class="footer-link" href="terms">Termos &amp; Condições</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4 mb-3 mb-md-0">
+                        <h6 class="text-uppercase mb-3">Empresa</h6>
+                        <ul class="list-unstyled mb-0">
+
+                            <li><a class="footer-link" href="#!">Avaliações</a></li>
+                            <li><a class="footer-link" href="#!">FAQs</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4">
+                        <h6 class="text-uppercase mb-3">Redes Sociais</h6>
+                        <ul class="list-unstyled mb-0">
+                            <li><a class="footer-link" target="_blank" href="https://www.instagram.com/marloscard/">Instagram</a></li>
+
+                            <li><a class="footer-link" target="_blank" href="https://wa.me/5574988274544">Whatsapp</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="border-top pt-4" style="border-color: #1d1d1d !important">
+                    <div class="row">
+                        <div class="col-md-6 text-center text-md-start">
+                            <p class="small text-muted mb-0">&copy; 2023 Todos os direitos reservados.</p>
+                        </div>
+                        <div class="col-md-6 text-center text-md-end">
+                            <p class="small text-muted mb-0">Sistema Completo Criador por <a class="text-white reset-anchor" target="_blank" href="http://geniusleap.tech">Genius Leap</a></p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- JavaScript files-->
+        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="vendor/glightbox/js/glightbox.min.js"></script>
+        <script src="vendor/nouislider/nouislider.min.js"></script>
+        <script src="vendor/swiper/swiper-bundle.min.js"></script>
+        <script src="vendor/choices.js/public/assets/scripts/choices.min.js"></script>
+
+
+        <!-- FontAwesome CSS - loading as last, so it doesn't block rendering-->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    </div>
+    <script src="./app.js"></script>
+</body>
+
+</html>
