@@ -24,7 +24,8 @@ const db = admin.firestore();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const server = http.createServer(app);
+const server = http.createServer(app).listen(port, '0.0.0.0');
+
 const io = socketio(server);
 
 app.use(bodyParser.urlencoded({ extended: true }));
