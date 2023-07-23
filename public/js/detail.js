@@ -1,26 +1,25 @@
 function loadpage() {
-    fetch('./marloscardosoprodutos')
+    const hash = window.location.hash.substring(1);
+    const decodedHash = decodeURIComponent(hash);
+    fetch('http://54.224.146.242/api/marloscardoso/listprodutos')
         .then(response => response.json())
-        .then(produtos => {
-            const hash = window.location.hash.substring(1);
+        .then(data => {
+            data.forEach(item => {
+                if (item.titulo == decodedHash) {
+                    // Ajustar o acesso correto às propriedades do item
+                    const produto = item;
 
-            const decodedHash = decodeURIComponent(hash);
+                    document.querySelector("#product-title").innerHTML = produto.titulo;
+                    document.querySelector("#product-price").innerHTML = 'R$' + produto.valor;
+                    document.querySelector("#product-description").innerHTML = produto.descricao;
+                    document.querySelector("#product-id").innerHTML = produto._id;
+                    document.querySelector("#product-category").innerHTML = produto.categoria;
+                    document.querySelector("#product-modelo").innerHTML = produto.modelo;
 
-            console.log(decodedHash); // Saída: "Gravata 1"
-
-            produtos.forEach(produto => {
-                if (decodedHash === produto.title) {
-
-
-                    document.querySelector("#product-title").innerHTML = produto.title
-                    document.querySelector("#product-price").innerHTML = 'R$' + produto.price
-                    document.querySelector("#product-description").innerHTML = produto.description
-                    document.querySelector("#product-id").innerHTML = produto.token
-                    document.querySelector("#product-category").innerHTML = produto.categoria
-                    document.querySelector("#product-modelo").innerHTML = produto.modelo
                     const btn = document.createElement("button");
                     btn.style.width = "100%";
-                    btn.className = "btn btn-dark btn-sm btn-block h-100 d-flex align-items-center justify-content-center  px-0";
+                    btn.className = "btn btn-dark btn-sm btn-block d-flex align-items-center justify-content-center  px-0";
+                    btn.style.height = '50px'
 
                     btn.innerText = "Adicionar ao carrinho";
                     btn.onclick = function() {
@@ -42,7 +41,7 @@ function loadpage() {
                             const savedData = JSON.parse(localStorage.getItem('Cart')) || [];
 
                             // Definir o objeto JSON a ser salvo
-                            const jsonData = { image: produto.image, title: produto.title, price: produto.price, token: produto.token };
+                            const jsonData = { image: produto.img, title: produto.titulo, price: produto.valor, token: produto._id };
 
                             // Adicionar o novo objeto JSON ao array
                             savedData.push(jsonData);
@@ -75,119 +74,46 @@ function loadpage() {
                         }).then((result) => {
                             /* Read more about handling dismissals below */
                             if (result.dismiss === Swal.DismissReason.timer) {
-                                location.href = '/cart'
+                                location.href = 'cart.html'
                             }
                         })
                     };
 
-                    document.querySelector("#product-addcart").innerHTML = "";
-                    document.querySelector("#product-addcart").appendChild(btn);
+                    const btnback = document.createElement("button")
+                    btnback.className = 'btn btn-outline-dark btn-sm'
 
-                    document.querySelector("#product-img2").src = produto.image
-                    productsCat(produto.categoria)
-
-                } else {
-
-                }
-            })
-
-
-
-        })
-        .catch(error => {
-            console.error('Erro ao carregar os produtos:', error);
-        });
-}
-document.addEventListener("DOMContentLoaded", loadpage())
-
-
-function productsCat(categoria) {
-
-    fetch('./marloscardosoprodutos')
-        .then(response => response.json())
-        .then(produtos => {
-
-            if (produtos.length === 0) {
-                const mensagem = $('<p>').text('Nenhum produto disponível.');
-                listaProdutos.append(mensagem);
-            } else {
-                document.querySelector("#list-products").innerHTML = ''
-                produtos.forEach(produto => {
-
-                    $(document).ready(function() {
-                        if (produto.categoria == categoria & produto.title != document.querySelector("#product-title").textContent) {
-                            // Dados a serem inseridos no HTML
-                            var productName = produto.title
-                            var productPrice = 'R$' + produto.price
-                            var productImageSrc = produto.image
-
-                            // Criando o elemento HTML com os dados dinâmicos usando o método append do jQuery
-                            $('#list-products').append(
-                                $('<div>').addClass('col-xl-3 col-lg-4 col-sm-6').append(
-                                    $('<div>').addClass('product text-center').append(
-                                        $('<div>').addClass('position-relative mb-3').append(
-                                            $('<div>').addClass('badge text-white bg-'),
-
-
-                                            $('<a>').addClass('d-block').attr('href', 'detail#' + produto.title).append(
-                                                $('<img>').addClass('img-fluid w-100').attr('src', productImageSrc).attr('alt', '...')
-                                            ).click(function() {
-                                                // Código da função a ser executada quando o link for clicado
-                                                setTimeout(() => {
-                                                    window.location.reload()
-                                                }, 100);
-                                            }),
-
-
-                                            $('<div>').addClass('product-overlay').append(
-                                                $('<ul>').addClass('mb-0 list-inline').append(
-
-                                                    $('<li>').addClass('list-inline-item m-0 p-0').append(
-                                                        $('<a>').addClass('btn btn-sm btn-dark').attr('href', 'cart').text('Carrinho')
-                                                    ),
-                                                    $('<li>').addClass('list-inline-item me-0').on('click', productview).append(
-                                                        $('<a>').addClass('btn btn-sm btn-outline-dark').attr('href', '#productView').attr('data-bs-toggle', 'modal').append(
-                                                            $('<i>').addClass('fas fa-expand')
-                                                        )
-                                                    )
-                                                )
-                                            )
-                                        ),
-                                        $('<h6>').append(
-
-
-
-                                            $('<a>').addClass('reset-anchor').attr('href', 'detail#' + produto.title).text(productName)
-                                        ),
-                                        $('<p>').addClass('small text-muted').text(productPrice)
-                                    )
-                                )
-                            );
-                        } else {
-                            const mensagem = $('<p>').text('Nenhum produto disponível nesta categoria.');
-                        }
-                    });
-
-                    // Função chamada quando o item é clicado
-                    function productview() {
-                        document.querySelector("#product-title").innerHTML = produto.title
-                        document.querySelector("#product-description").innerHTML = produto.description
-                        document.querySelector("#product-price").innerHTML = 'R$' + produto.price
-                        $('#product-image').css('background-image', 'url(' + produto.image + ')');
-
+                    btnback.textContent = 'Voltar ao catálogo'
+                    btnback.onclick = function() {
+                        history.back()
                     }
 
-                });
+                    const btnshare = document.createElement("button")
+                    btnshare.className = 'btn btn-outline-dark btn-sm'
+                    btnshare.textContent = 'Compartilhar'
 
-            }
+                    btnshare.style.marginLeft = '10px'
+                    btnshare.onclick = function() {
 
+                        const url = 'Conheça a Loja Marlos Cardoso! Estilo masculino elevado à máxima elegância. Link: ' + encodeURIComponent(window.location.href);
+                        window.open(`https://wa.me/?text=${url}`, '_blank');
+
+                    }
+                    document.querySelector("#product-addcart").innerHTML = "";
+                    document.querySelector("#product-addcart").appendChild(btn);
+                    document.querySelector("#product-addcart").appendChild(btnback);
+                    document.querySelector("#product-addcart").appendChild(btnshare);
+
+                    document.querySelector("#product-img2").src = produto.img
+
+                    document.querySelector("#product-img2").src = produto.img;
+                }
+            });
         })
         .catch(error => {
-            console.error('Erro ao carregar os produtos:', error);
-            document.querySelector("#list-products").innerHTML = `
-                <span style="color:red;">Erro ao procurar produtos</span>
-        
-        
-                `
+            // Lida com erros da solicitação fetch, se houver
+            console.error('Ocorreu um erro:', error);
         });
 }
+
+// Use o evento 'DOMContentLoaded' e passe uma referência da função, em vez de executá-la
+document.addEventListener("DOMContentLoaded", loadpage);
